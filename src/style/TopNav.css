@@ -1,0 +1,13 @@
+nav {
+  position: fixed;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-wrapper { 
+  padding: 0 1rem;
+}
+
+.nav-wrapper__lang-container {
+  cursor: pointer;
+}

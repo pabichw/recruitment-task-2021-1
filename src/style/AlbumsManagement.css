@@ -1,0 +1,25 @@
+.albums-manager {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 100vh;
+    padding-top: 70px;
+}
+
+.albums-manager > div {
+    padding: 3rem;
+}
+
+.albums-manager__add-album-section {
+    flex: 1;
+}
+
+.albums-manager__albums-collection-section {
+    flex: 1;
+}
+
+@media only screen and (max-width: var(--MOBILE_BREAKPOINT)) {
+    .albums-manager {
+        flex-direction: column;
+    }
+}
