@@ -6,8 +6,7 @@ nav {
 
 .nav-wrapper { 
   padding: 0 1rem;
-}
-
-.nav-wrapper__lang-container {
-  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

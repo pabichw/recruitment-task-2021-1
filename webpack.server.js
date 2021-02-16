@@ -2,7 +2,7 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
-  entry: './server/index.js',
+  entry: './server/index.jsx',
 
   target: 'node',
 
@@ -10,15 +10,15 @@ module.exports = {
 
   output: {
     path: path.resolve('server-build'),
-    filename: 'index.js'
+    filename: 'index.jsx',
   },
 
   module: {
     rules: [
       {
         test: /\.js$/,
-        use: 'babel-loader'
-      }
-    ]
-  }
+        use: 'babel-loader',
+      },
+    ],
+  },
 };
