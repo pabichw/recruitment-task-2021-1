@@ -21,7 +21,10 @@ const Album = ({ data, onStarPress, onDeletePress }) => (
 );
 
 Album.propTypes = {
-  data: PropTypes.objectOf(PropTypes.object).isRequired,
+  data: PropTypes.shape({
+    name: PropTypes.string,
+    isTheBestOf: PropTypes.bool,
+  }).isRequired,
   onStarPress: PropTypes.func.isRequired,
   onDeletePress: PropTypes.func.isRequired,
 };
