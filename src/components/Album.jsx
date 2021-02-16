@@ -7,7 +7,7 @@ const Album = ({data, onStarPress, onDeletePress}) => {
                 <img alt="album-cover" src="assets/images/album-placeholder.jpg"/>
             </div>
             <div className="card-content">
-                <p>{data.name}</p>
+                <p className="card-content__card-text">{data.name}</p>
             </div>
             <div className="card-action">
                 <button onClick={onDeletePress} className="btn-floating btn-small waves-effect waves-light red">
