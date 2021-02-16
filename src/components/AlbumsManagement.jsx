@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../style/AlbumsManagement.css';
 import { KEYS, load, save } from '../utils/localStorage';
-
+import { v4 as uuidv4 } from 'uuid';
 import AddAlbumForm from './forms/AddAlbumForm';
 import Album from './Album';
 import { useTranslation } from 'react-i18next';
@@ -28,7 +28,7 @@ const AlbumsManagement = () => {
     };
 
     const handleAlbumAdd = (album) => {
-        const id = `album-${album.name}`;
+        const id = uuidv4();
         setFavMusicList([...favMusicList, {...album, id}]);
     }
 
