@@ -4,30 +4,29 @@ import './style/App.css';
 import TopNav from './components/TopNav';
 import AlbumsManagement from './components/AlbumsManagement';
 import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import Cache from 'i18next-localstorage-cache';
+import { initReactI18next, withSSR } from 'react-i18next';
+import LngDetector from 'i18next-browser-languagedetector';
 import { resources } from './utils/i18nResources';
 
+
 i18n
-.use(initReactI18next) // passes i18n down to react-i18next
-.use(Cache)
+.use(initReactI18next)
+.use(LngDetector)
 .init({
   resources,
-  fallbackLng: "en",
+  detection: {
+    order: ["localStorage", "navigator"],
+    caches: ["localStorage"]
+  },
+  fallbackLng: "en-US",
 
   interpolation: {
     escapeValue: false
   },
-  Cache: {
-    enabled: true,
-    prefix: 'translation_',
-    expirationTime: Infinity,
-    Version: {},
-    // defaultVersion: '',
-  },
+  
 });
 
-function App() {
+const App = withSSR()(() => {
   return (
     <div className="app"> 
       <TopNav/>
@@ -36,6 +35,6 @@ function App() {
       </main>
     </div>
   );
-}
+})
 
 export default App;

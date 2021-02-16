@@ -24,6 +24,8 @@ const AlbumsManagement = () => {
 
         if (loadedAlbums) {
             setFavMusicList(loadedAlbums);
+        } else {
+            setFavMusicList([]);
         }
     };
 
