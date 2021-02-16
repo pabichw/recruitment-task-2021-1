@@ -4,41 +4,43 @@ import { KEYS, load, save } from '../utils/localStorage';
 
 import AddAlbumForm from './forms/AddAlbumForm';
 import Album from './Album';
+import { useTranslation } from 'react-i18next';
 
 const AlbumsManagement = () => {
-    const [albums, setAlbums] = useState([]);
+    const [favMusicList, setFavMusicList] = useState(null);
+    const { t } = useTranslation();
 
     useEffect(() => {
         loadAlbums();
     }, [])
 
     useEffect(() => {
-        save(KEYS.ALBUMS, JSON.stringify(albums));
-    }, [albums]);
+        save(KEYS.ALBUMS, JSON.stringify(favMusicList));
+    }, [favMusicList]);
 
     const loadAlbums = async () => {
         const loadedAlbumsJSON = await load(KEYS.ALBUMS);
         const loadedAlbums = JSON.parse(loadedAlbumsJSON);
 
         if (loadedAlbums) {
-            setAlbums(loadedAlbums);
+            setFavMusicList(loadedAlbums);
         }
     };
 
     const handleAlbumAdd = (album) => {
         const id = `album-${album.name}`;
-        setAlbums([...albums, {...album, id}]);
+        setFavMusicList([...favMusicList, {...album, id}]);
     }
 
-    const handleMarkFavourite = (album) => {
-        const foundAlbumidx = albums.findIndex(a => a.id === album.id);
-        const updatedAlbums = [...albums];
+    const handleMarkBestOf = (album) => {
+        const foundAlbumidx = favMusicList.findIndex(a => a.id === album.id);
+        const updatedAlbums = [...favMusicList];
         updatedAlbums[foundAlbumidx].isTheBestOf = !album.isTheBestOf; //toggle
-        setAlbums(updatedAlbums);
-    } 
+        setFavMusicList(updatedAlbums);
+    }
 
     const handleDeleteAlbum = (album) => {
-        setAlbums(albums.filter(a => a.id !== album.id));
+        setFavMusicList(favMusicList.filter(a => a.id !== album.id));
     }
 
     return (
@@ -47,13 +49,18 @@ const AlbumsManagement = () => {
                 <AddAlbumForm onSubmit={handleAlbumAdd}/>
             </div>
             <div className="albums-manager__albums-collection-section">
-                <ul className="row">
-                    {!!albums && albums.length > 0 && albums.map((album, idx) => 
-                        <li key={`album-item-${idx}`} className="col s4">
-                            <Album data={album} onStarPress={() => handleMarkFavourite(album)} onDeletePress={() => handleDeleteAlbum(album)}/>
-                        </li>
-                    )}
-                </ul>
+                {!!favMusicList && 
+                    <ul className="row">
+                        {favMusicList.length > 0 &&
+                            favMusicList.map((album, idx) => 
+                                <li key={`album-item-${idx}`} className="col m12 l6 xl4 scale-transition scale-in">
+                                    <Album data={album} onStarPress={() => handleMarkBestOf(album)} onDeletePress={() => handleDeleteAlbum(album)}/>
+                                </li>
+                            )  
+                        }
+                        {favMusicList.length === 0 && <p className="flow-text grey-text">{t('albumsManagement.noAlbums')}</p>}
+                    </ul>
+                }
             </div>
         </div>
     );

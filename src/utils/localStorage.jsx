@@ -1,5 +1,6 @@
 export const KEYS = {
-    ALBUMS: 'ALBUMS'
+    ALBUMS: 'ALBUMS',
+    LOCALE: 'LOCALE'
 };
 
 export const save = async (key, item) => {

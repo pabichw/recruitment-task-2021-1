@@ -9,12 +9,17 @@ const AddAlbumForm = ({onSubmit}) => {
     return (
         <Form
             onSubmit={onSubmit}
-            render={({ handleSubmit }) => (
-                <form id="add-album-form" onSubmit={handleSubmit} className="col s12">
+            render={({ handleSubmit, form }) => (
+                <form 
+                    onSubmit={(event) => {
+                        handleSubmit(event);
+                        form.reset();
+                    }} 
+                    className="col s12"
+                >
                     <div className="row">
-                        <div className="input-field col s6">
-                            <Field name="name" id="name" validate={composeValidators(required)} component="input" />
-                            <label for="name">{t('albumsManagement.form.namePlaceholder')}</label>
+                        <div className="input-field col s12">
+                            <Field name="name" id="name" validate={composeValidators(required)} placeholder={t('albumsManagement.form.namePlaceholder')} component="input" />
                         </div>
                     </div>
                     <button className="btn waves-effect waves-light"  type="submit">{t('general.add')}</button>
